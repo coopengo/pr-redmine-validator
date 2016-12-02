@@ -104,13 +104,13 @@ def get_redmine_reference(data):
     data['redmine_type'] = None
     last_line = data['pull_request']['body'].split('\n')[-1]
     if not last_line.startswith('Fix #') and not last_line.startswith('Ref #'):
-        return
+        return None, None
     try:
         data['redmine_issue'] = last_line[5:]
         data['redmine_type'] = last_line[0:3]
         return data['redmine_issue'], data['redmine_type']
     except:
-        return
+        return None, None
 
 
 def get_redmine_data(data):
