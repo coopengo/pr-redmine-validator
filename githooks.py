@@ -198,7 +198,7 @@ def check_labels(data):
         print redmine_data['project']['id']
         return ('failure', 'labels', 'Bad project for issue %s'
             % redmine_number)
-    if 'cherry checked' not in labels:
+    if 'bug' in labels and 'cherry checked' not in labels:
         return ('failure', 'labels', 'Missing cherry check')
     return ('success', 'labels', '')
 
