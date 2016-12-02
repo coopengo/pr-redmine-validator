@@ -132,7 +132,7 @@ def get_pull_request_files(data):
 
 
 def check_title(data):
-    if 'bypass_title_check' in get_labels(data):
+    if 'bypass title check' in get_labels(data):
         return ('success', 'commit_title', 'FORCED')
     title = data['pull_request']['title']
     if ': ' not in title:
@@ -145,7 +145,7 @@ def check_title(data):
 
 
 def check_body(data):
-    if 'bypass_body_check' in get_labels(data):
+    if 'bypass body check' in get_labels(data):
         return ('success', 'commit_body', 'FORCED')
     body = data['pull_request']['body']
     if body == '':
@@ -163,7 +163,7 @@ def check_body(data):
 
 def check_labels(data):
     labels = get_labels(data)
-    if 'bypass_label_check' in labels:
+    if 'bypass label check' in labels:
         return ('success', 'labels', 'FORCED')
     if 'bug' not in labels and 'enhancement' not in labels:
         return ('failure', 'labels', 'No bug or enhancement labels found')
@@ -198,12 +198,14 @@ def check_labels(data):
         print redmine_data['project']['id']
         return ('failure', 'labels', 'Bad project for issue %s'
             % redmine_number)
+    if 'cherry checked' not in labels:
+        return ('failure', 'labels', 'Missing cherry check')
     return ('success', 'labels', '')
 
 
 def check_contents(data):
     labels = get_labels(data)
-    if 'bypass_content_check' in labels:
+    if 'bypass content check' in labels:
         return ('success', 'contents', 'FORCED')
 
     files = get_pull_request_files(data)
