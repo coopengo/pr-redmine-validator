@@ -193,9 +193,6 @@ def check_labels(data):
                 % redmine_number)
     if redmine_data['project']['id'] not in [x[0] for x in ALLOWED_PROJECTS[
                 data['pull_request']['base']['repo']['full_name']]]:
-        print ALLOWED_PROJECTS[
-                data['pull_request']['base']['repo']['full_name']]
-        print redmine_data['project']['id']
         return ('failure', 'labels', 'Bad project for issue %s'
             % redmine_number)
     if 'bug' in labels and 'cherry checked' not in labels:
